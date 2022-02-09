@@ -1,0 +1,35 @@
+#!groovy
+// Check ub1 properties
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent { 
+            label 'docker'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage("Build image") {
+            steps {
+                sh 'docker build -t 9vadim/my_images:stat_app .'
+            }
+        }
+        stage("Docker login") {
+            steps {
+                sh 'docker login -u 9vadim -p ${GIT_HUB_TOKEN}'
+            }
+        }
+       stage("Docker push") {
+            steps {
+                sh 'docker push 9vadim/my_images:stat_app'
+            }
+        }
+       stage("ls step") {
+            steps {
+                sh 'ls -la'
+            }
+        }
+    }
+}
