@@ -5,11 +5,8 @@ import db
 def update_token():
     url = "https://api.worldoftanks.ru/wot/auth/prolongate/"
     log.info('WOT Обновление токена.')
-    try:
-        post_data = {'application_id': db.get_opt('wot_app_id'), 'access_token': db.get_opt('wot_token'), "expires_at":"604800"}
-        response = requests.post(url,data=post_data)
-    except requests.exceptions.RequestException as e:
-        log.error('WOT Обновление токена. Ошибка {}'.format(str(e)))
+    post_data = {'application_id': db.get_opt('wot_app_id'), 'access_token': db.get_opt('wot_token'), "expires_at":"604800"}
+    response = requests.post(url,data=post_data)
     json_response = response.json()
     if response.status_code == 200 and json_response["status"] != 'error' and json_response['status'] == 'ok':
         db.set_opt('wot_token', json_response['data']['access_token'])
@@ -21,10 +18,7 @@ def add_record():
     acc_id=db.get_opt('wot_acc_id')
     url = 'https://api.worldoftanks.ru/wot/account/info/?application_id=' + db.get_opt('wot_app_id') + '&access_token=' + db.get_opt('wot_token') + '&account_id=' + acc_id
     log.info('WOT Добавление записи. Запрос данных: {}'.format(url))
-    try:
-        response = requests.get(url)
-    except requests.exceptions.RequestException as e:
-        log.error('Ошибка получения данных. {}'.format(str(e)))
+    response = requests.get(url)
     wot_response = response.json()
     if response.status_code == 200 and wot_response["status"] != 'error' and  wot_response['status'] == 'ok':
         log.info('WOT Получены данные. {}'.format(str(wot_response)))
