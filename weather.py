@@ -2,11 +2,12 @@ import requests
 import log
 import db
 
+
 def get_data():
     headers = {'X-Yandex-API-Key': db.get_opt('yandex_api_key')}
     url = "https://api.weather.yandex.ru/v2/informers?lat=55.749829945655605&lon=37.8730471919356&lang=ru_RU"
     log.info('WEATHER Получение данных. url - {}'.format(url))
-    response = requests.get(url,headers=headers)
+    response = requests.get(url, headers=headers)
     if response.status_code == 200:
         json_response = response.json()
         log.info('WEATHER Получены данные. {}'.format(str(json_response)))
@@ -45,5 +46,5 @@ def get_data():
                 )
         db.add_record(sql_insert, data)
     else:
-        errorText = "WEATHER Ошибка получения данных {}".format(response)
-        log.error(errorText)
+        errortext = "WEATHER Ошибка получения данных {}".format(response)
+        log.error(errortext)
