@@ -4,6 +4,9 @@ import wot
 import weather
 import log
 
+from os import environ
+print(environ)
+
 log.info('Start application')
 weather.get_data()
 wot.add_record()
