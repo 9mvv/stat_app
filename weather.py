@@ -2,7 +2,6 @@ import requests
 import log
 import db
 
-
 def get_data():
     headers = {'X-Yandex-API-Key': db.get_opt('yandex_api_key')}
     url = "https://api.weather.yandex.ru/v2/informers?lat=55.749829945655605&lon=37.8730471919356&lang=ru_RU"
@@ -11,6 +10,7 @@ def get_data():
     if response.status_code == 200:
         json_response = response.json()
         log.info('WEATHER Получены данные. {}'.format(str(json_response)))
+        #fact_weather
         fact_weather = json_response["fact"]
         sql_insert = "INSERT INTO weather_fact (" \
                     "update_time," \
