@@ -2,6 +2,7 @@ import requests
 import log
 import db
 
+
 def get_data():
     headers = {'X-Yandex-API-Key': db.get_opt('yandex_api_key')}
     url = "https://api.weather.yandex.ru/v2/informers?lat=55.749829945655605&lon=37.8730471919356&lang=ru_RU"

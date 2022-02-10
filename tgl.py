@@ -1,6 +1,7 @@
 import requests
 import log
 
+
 def send(bot_message):
     bot_token = 'AAFn-BTZo-RB7W-oZpwNKUGw-E8W5kX6168'
     bot_chatid = '740348827'
