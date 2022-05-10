@@ -37,3 +37,13 @@ def get_opt(opt_name):
     result = cursor.fetchone()
     db.close()
     return result[0]
+
+def set_invest_balance(account, balance):
+    log.info('Запись баланса в БД.')
+    db = MySQLdb.connect(host=mysql_host, user=mysql_user, passwd=mysql_passwd, db=mysql_db, charset='utf8', use_unicode=True,port=int(mysql_port))
+    cursor = db.cursor()
+    sql = "INSERT INTO finances_amount (date_time,account_id,amount) VALUES (NOW(),'"+account+"','"+balance+"');"
+    cursor.execute(sql)
+    log.info('Запись баланса завершена.')
+    db.commit()
+    db.close()

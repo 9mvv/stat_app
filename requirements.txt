@@ -1,3 +1,5 @@
 mysqlclient
 schedule 
 requests
+tinkoff-investments
+python-dateutil
